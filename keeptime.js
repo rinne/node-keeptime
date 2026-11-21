@@ -51,14 +51,10 @@ KeepTime.prototype.get = function() {
 KeepTime.prototype.set = function(seconds) {
 	seconds = parseFloat(seconds);
 	if (! isFinite(seconds)) {
-		e = new Error('Bad timer value');
-		e.name = 'TypeError';
-		throw e;
+		throw new TypeError('Bad timer value');
 	}
 	if (seconds < 0) {
-		e = new Error('Can\'t set timer to negative value');
-		e.name = 'RangeError';
-		throw e;
+		throw new RangeError('Can\'t set timer to negative value');
 	}
 	var running = (! this.timerStop);
 	if ((seconds * 10) > Number.MAX_SAFE_INTEGER) {

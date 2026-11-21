@@ -32,6 +32,22 @@
 			throw new Error('Non-KeepTime object recognized as a timer by KeepTime.isKeepTime(): ' + JSON.stringify(x));
 		}
 	}));
+	(([ [ 'abc', TypeError ], [ NaN, TypeError ], [ Infinity, TypeError ], [ -1, RangeError ] ]).forEach(function(x) {
+		var t = new KeepTime(), caught;
+		try {
+			t.set(x[0]);
+		} catch (e) {
+			caught = e;
+		}
+		if (! (caught instanceof x[1])) {
+			throw new Error('KeepTime.prototype.set(' + String(x[0]) + ') did not throw ' + x[1].name + ' but ' + String(caught));
+		}
+	}));
+	timer = new KeepTime();
+	timer.set(42.5);
+	if (timer.get() !== 42.5) {
+		throw new Error('KeepTime.prototype.set(42.5) gave ' + timer.get());
+	}
 	timer = new KeepTime(true);
 	(delayedResolve(testTime)
 	 .then(function() {
