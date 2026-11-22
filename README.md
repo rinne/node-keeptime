@@ -49,9 +49,12 @@ KeepTime.prototype.set(seconds)
 Set the timer to given number of seconds. Only finite, non-negative
 numbers are allowed.
 
-Avoid using ridiculously high values.  Above 2^40 seconds, the timer
-granularity starts to degrade, but since it's already around 6e32
-years, it should not be a problem.  Below that, it should be ok.
+Avoid using ridiculously high values. get() returns a floating point
+number of seconds, so its resolution is a nanosecond or better only
+below 2^23 seconds (about 97 days). At 2^40 seconds (about 35 000
+years) it is about a quarter of a millisecond. getArray() always has
+nanoseconds. set() keeps the fraction of a second up to about 9e14
+seconds (28 million years) and rounds to whole seconds above that.
 
 KeepTime.prototype.getReadable(decimals)
 ----------------------------------------
@@ -105,11 +108,22 @@ KeepTime.prototype.isRunning()
 
 Return true if the timer is running, false if it's stopped.
 
+KeepTime.prototype.toString()
+-----------------------------
+
+The same as getReadable(6), so that a timer can be used directly in a
+string.
+
 KeepTime.readable(seconds, decimals)
 ------------------------------------
 
 A static version for converting a number of seconds to a readable
 string.
+
+KeepTime.isKeepTime(value)
+--------------------------
+
+Return true if the value is a KeepTime object, false otherwise.
 
 Author
 ======
