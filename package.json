@@ -1,8 +1,15 @@
 {
 	"name": "keeptime",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"description": "A simple timer class to measure passing of the time.",
 	"main": "keeptime.js",
+	"files": [
+		"keeptime.js",
+		"hrtime.js",
+		"readable.js",
+		"GPL-2.0.TXT",
+		"CHANGELOG.md"
+	],
 	"scripts": {
 		"test": "node ./test/keeptime-test.js"
 	},
